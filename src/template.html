@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Psy-Quant ∞ | מערכת למידה ומחולל שאלות כמותי ב-7 רמות</title>
+  <meta property="og:title" content="Psy-Quant ∞ | למידה ותרגול חשיבה כמותית ב-7 רמות קושי" />
+  <meta property="og:description" content="15 יחידות לימוד ממוקדות עם טכניקות פיצוח וקיצורי דרך, מחולל אלגוריתמי אינסופי ב-7 רמות קושי ותרגולים מסכמים. 3 תרגילים ראשונים חינם!" />
+  <meta property="og:type" content="website" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Heebo', sans-serif; background-color: #f8fafc; color: #0f172a; }
+    .math-dir { direction: ltr; display: inline-block; unicode-bidi: embed; font-family: 'Courier New', monospace; font-weight: 700; }
+    .level-pill { transition: all 0.18s ease; }
+    .level-pill:hover { transform: translateY(-1px); }
+    .topic-btn.active { background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%); color: white; border-color: transparent; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25); }
+    .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <header id="mainHeader" class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-md">∞</div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-black text-lg md:text-xl text-slate-900 tracking-tight">Psy-Quant <span class="text-indigo-600">7-Levels</span></h1>
+            <span class="bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-bold px-2 py-0.5 rounded-full">למידה לפי נושא + מחולל אינסופי</span>
+          </div>
+          <p class="text-xs text-slate-500">15 יחידות לימוד ממוקדות · כרטיסי אסטרטגיה וקיצורי דרך · 7 רמות קושי לכל שאלה</p>
+        </div>
+      </div>
+
+      <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
+        <button id="modeLearnBtn" onclick="setAppMode('learn')" class="px-3.5 py-1.5 rounded-lg text-xs md:text-sm font-bold transition bg-white text-indigo-700 shadow-sm">
+          📚 למידה ותרגול לפי נושא (15)
+        </button>
+        <button id="modeSummaryBtn" onclick="setAppMode('summary')" class="px-3.5 py-1.5 rounded-lg text-xs md:text-sm font-bold transition text-slate-600 hover:text-slate-900">
+          🎯 תרגולים מסכמים (ערבוב כל הנושאים ∞)
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <div id="trialBadge" class="bg-amber-50 border border-amber-200 text-amber-900 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5">
+          <span>🎁 ניסיון חינם:</span>
+          <span id="trialCountText">תרגיל 1 מתוך 3</span>
+        </div>
+
+        <button onclick="openShareModal('social')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition">
+          <span>🔗 שיתוף / Iframe</span>
+        </button>
+
+        <button id="authHeaderBtn" onclick="openAuthModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+          <span id="authHeaderBtnText">התחברות עם Google</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto w-full px-4 py-6 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <aside id="topicsSidebar" class="lg:col-span-3 space-y-5">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+          <div>
+            <h2 class="font-extrabold text-sm text-slate-800">סילבוס הלימוד — 15 נושאים</h2>
+            <p class="text-[11px] text-slate-500">בחר נושא ללמידת האסטרטגיה ותרגול מדורג</p>
+          </div>
+          <span class="bg-indigo-100 text-indigo-700 font-bold text-xs px-2 py-0.5 rounded-md">15</span>
+        </div>
+
+        <div class="p-2 bg-slate-100/70 border-b border-slate-200 grid grid-cols-4 gap-1 text-[11px] font-bold">
+          <button onclick="filterTopicList('all')" id="catFilter_all" class="py-1 rounded bg-white text-indigo-700 shadow-sm">הכל</button>
+          <button onclick="filterTopicList('אלגברה')" id="catFilter_אלגברה" class="py-1 rounded text-slate-600 hover:bg-white">אלגברה</button>
+          <button onclick="filterTopicList('בעיות')" id="catFilter_בעיות" class="py-1 rounded text-slate-600 hover:bg-white">בעיות</button>
+          <button onclick="filterTopicList('גאומטריה וגרפים')" id="catFilter_גאומטריה וגרפים" class="py-1 rounded text-slate-600 hover:bg-white">גאומ׳/גרף</button>
+        </div>
+
+        <div id="topicButtonsList" class="p-2.5 space-y-1.5 max-h-[420px] overflow-y-auto custom-scroll"></div>
+      </div>
+
+      <div class="bg-gradient-to-br from-indigo-900 via-slate-900 to-indigo-950 text-white rounded-2xl p-4 shadow-md border border-indigo-800/50">
+        <div class="flex items-center justify-between mb-2">
+          <span class="bg-indigo-500/30 border border-indigo-400/30 text-indigo-200 text-[11px] font-bold px-2.5 py-0.5 rounded-full">מועדון תרגול יומי</span>
+          <span class="text-lg">📩📱</span>
+        </div>
+        <h3 class="font-extrabold text-sm mb-1">שאלה יומית + קיצור דרך ב-SMS ובמייל</h3>
+        <p class="text-xs text-slate-300 mb-3 leading-relaxed">קבל בכל בוקר שאלה מותאמת לרמה שלך (1–7) עם פתרון מזורז וטכניקת פיצוח ישירות לנייד ולמייל.</p>
+        <form onsubmit="handleSidebarLeadSubmit(event)" class="space-y-2">
+          <input id="sideLeadEmail" type="email" required placeholder="כתובת אימייל..." class="w-full px-3 py-1.5 rounded-lg bg-white/10 border border-white/20 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-indigo-400" />
+          <input id="sideLeadPhone" type="tel" required placeholder="טלפון נייד ל-SMS (05X-XXXXXXX)" class="w-full px-3 py-1.5 rounded-lg bg-white/10 border border-white/20 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-indigo-400" />
+          <div class="flex items-center gap-3 text-[11px] text-slate-300 pt-0.5">
+            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" checked class="accent-indigo-400" /> עדכוני מייל</label>
+            <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" checked class="accent-indigo-400" /> תזכורת SMS</label>
+          </div>
+          <button type="submit" class="w-full bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-xs py-2 rounded-lg shadow transition">
+            הצטרפות לרשימת התפוצה
+          </button>
+          <p id="sideLeadFeedback" class="text-[11px] text-emerald-300 font-bold hidden text-center pt-1"></p>
+        </form>
+      </div>
+    </aside>
+
+    <section id="mainContentSection" class="lg:col-span-9 space-y-5">
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md border border-indigo-100">סולם 7 רמות קושי</span>
+            <h2 class="text-sm font-bold text-slate-800" id="levelDescTitle">בחר את רמת הקושי של השאלה</h2>
+          </div>
+          <button onclick="stepDifficulty(1)" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-3 py-1 rounded-lg transition">
+            ⬆️ העלה רמת קושי (+1)
+          </button>
+        </div>
+        <div class="grid grid-cols-7 gap-1.5 md:gap-2" id="sevenLevelsBar"></div>
+      </div>
+
+      <div id="courseSummaryCard" class="bg-white rounded-2xl border-2 border-indigo-100 shadow-sm overflow-hidden">
+        <div class="bg-gradient-to-l from-indigo-50 via-slate-50 to-white px-5 py-3.5 border-b border-indigo-100 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5">
+            <span class="bg-indigo-600 text-white text-xs font-extrabold px-2.5 py-1 rounded-lg">מדריך אסטרטגיה וטכניקות</span>
+            <h3 id="cheatTopicTitle" class="font-black text-base md:text-lg text-slate-900">אחוזים</h3>
+            <span id="cheatTopicCategory" class="text-xs text-slate-500 font-medium">(בעיות)</span>
+          </div>
+          <button onclick="toggleCheatSheetBody()" id="toggleCheatBtn" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 bg-white border border-indigo-200 px-3 py-1 rounded-lg shadow-2xs">
+            הסתר כרטיס לימוד ▲
+          </button>
+        </div>
+
+        <div id="cheatSheetBody" class="p-5 grid grid-cols-1 md:grid-cols-3 gap-4 bg-white">
+          <div class="bg-blue-50/60 border border-blue-200/80 rounded-xl p-3.5">
+            <div class="flex items-center gap-1.5 text-blue-900 font-extrabold text-xs mb-2">
+              <span>🔍</span><span>זיהוי + אסטרטגיית פתרון</span>
+            </div>
+            <ul id="cheatMethodList" class="text-xs text-slate-700 space-y-1.5 list-disc list-inside leading-relaxed"></ul>
+          </div>
+          <div class="bg-emerald-50/60 border border-emerald-200/80 rounded-xl p-3.5">
+            <div class="flex items-center gap-1.5 text-emerald-900 font-extrabold text-xs mb-2">
+              <span>📌</span><span>חשוב לזכור (חוקי יסוד)</span>
+            </div>
+            <ul id="cheatRememberList" class="text-xs text-slate-700 space-y-1.5 list-disc list-inside leading-relaxed"></ul>
+          </div>
+          <div class="bg-amber-50/70 border border-amber-200/90 rounded-xl p-3.5">
+            <div class="flex items-center gap-1.5 text-amber-900 font-extrabold text-xs mb-2">
+              <span>⚡</span><span>קיצורי דרך + מוקשים נפוצים</span>
+            </div>
+            <ul id="cheatShortcutsList" class="text-xs text-slate-700 space-y-1.5 list-disc list-inside leading-relaxed"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="summaryModeBanner" class="hidden bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl p-4 shadow-md flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-400 text-slate-950 font-black flex items-center justify-center text-lg">🎯</div>
+          <div>
+            <h3 class="font-extrabold text-sm md:text-base">מצב תרגולים מסכמים — סימולציה רב-נושאית אינסופית</h3>
+            <p class="text-xs text-slate-300">המערכת מגרילה שאלות מכל 15 הנושאים ללא רמז מוקדם. ניתן לחשוף את "טכניקת הפיצוח" לאחר המענה.</p>
+          </div>
+        </div>
+        <button onclick="setAppMode('learn')" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition">
+          חזרה ללמידה לפי נושא
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="px-5 py-3.5 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span id="qBadgeNumber" class="bg-slate-900 text-white text-xs font-black px-2.5 py-1 rounded-lg">תרגיל #1</span>
+            <span id="qBadgeTopic" class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded-lg">אחוזים</span>
+            <span id="qBadgeLevel" class="bg-amber-100 text-amber-900 border border-amber-300 text-xs font-extrabold px-2.5 py-1 rounded-lg">רמת קושי 1 / 7</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="regenerateSameTopicAndLevel()" class="text-xs font-bold bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-xl transition flex items-center gap-1">
+              <span>🔄</span><span>החלף מספרים באותה רמה</span>
+            </button>
+            <button onclick="generateNextInfiniteQuestion()" class="text-xs font-extrabold bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-1.5 rounded-xl shadow-xs transition flex items-center gap-1">
+              <span>חולל שאלה חדשה ∞</span><span>⬅️</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="p-5 md:p-6 space-y-5">
+          <div class="flex items-center justify-between bg-slate-50 border border-slate-200/80 rounded-xl px-3.5 py-2 text-xs">
+            <div class="flex items-center gap-2 text-slate-600">
+              <span class="font-bold text-indigo-600">💡 כיוון עבודה מומלץ:</span>
+              <span id="qQuickTipText"></span>
+            </div>
+            <span id="statsStreakBadge" class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">רצף הצלחות: 0</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+            <div id="questionTextContainer" class="md:col-span-12 space-y-3">
+              <p id="questionPrompt" class="text-base md:text-lg font-bold text-slate-900 leading-relaxed"></p>
+            </div>
+            <div id="questionSvgContainer" class="md:col-span-5 hidden flex justify-center"></div>
+          </div>
+
+          <div id="optionsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1"></div>
+
+          <div id="explanationBox" class="hidden rounded-2xl p-4 border space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 id="explanationStatusTitle" class="font-black text-sm"></h4>
+              <span id="explanationTechniqueBadge" class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800"></span>
+            </div>
+            <p id="explanationText" class="text-xs md:text-sm text-slate-700 leading-relaxed"></p>
+            <div class="pt-2 flex flex-wrap items-center gap-2">
+              <button onclick="generateNextInfiniteQuestion()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-xl transition">
+                המשך לתרגיל הבא ∞
+              </button>
+              <button onclick="stepDifficulty(1)" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold px-3.5 py-2 rounded-xl transition">
+                ⬆️ נסה את הנושא הזה ברמת קושי גבוהה יותר
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 mt-8 py-4 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>© 2026 <strong>Psy-Quant ∞</strong> — כל השאלות, הטכניקות והסרטוטים מופקים אלגוריתמית בזמן אמת לצורכי תרגול ולמידה עצמאית.</p>
+      <p class="text-[11px] text-slate-400">תוכן מקורי ועצמאי לחלוטין — אינו קשור לגופי בחינה או לחברות הכנה מסחריות.</p>
+    </div>
+  </footer>
+
+  <!-- AUTH MODAL -->
+  <div id="authModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 relative">
+      <button onclick="closeAuthModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+      <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 font-black flex items-center justify-center text-2xl mb-3">🔓</div>
+      <h3 class="font-black text-xl text-slate-900 mb-1">השלמת 3 תרגילי ניסיון בחינם!</h3>
+      <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+        כדי לפתוח גישה חופשית ואינסופית לכל <strong>15 יחידות הלימוד</strong>, לכל <strong>7 רמות הקושי</strong> ולמצב התרגולים המסכמים — התחבר בלחיצה עם Google או הירשם לרשימת התפוצה:
+      </p>
+
+      <button onclick="handleGoogleSignIn()" class="w-full py-2.5 px-4 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 rounded-xl font-bold text-sm text-slate-800 flex items-center justify-center gap-2.5 transition mb-4 shadow-2xs">
+        <span>המשך עם חשבון Google</span>
+      </button>
+
+      <form onsubmit="handleModalLeadSubmit(event)" class="space-y-2.5">
+        <input id="modalName" type="text" required placeholder="שם מלא" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-indigo-600" />
+        <input id="modalEmail" type="email" required placeholder="כתובת אימייל" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-indigo-600" />
+        <input id="modalPhone" type="tel" required placeholder="מספר נייד לקבלת SMS (05X-XXXXXXX)" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:outline-none focus:border-indigo-600" />
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm py-2.5 rounded-xl shadow-md transition">
+          פתיחת גישה מלאה ללא הגבלה ∞
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SHARE & IFRAME MODAL -->
+  <div id="shareModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 relative max-h-[92vh] overflow-y-auto">
+      <button onclick="closeShareModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+      <h3 class="font-black text-lg text-slate-900 mb-1">שיתוף חברתי והטמעת Iframe אינטראקטיבי</h3>
+      <p class="text-xs text-slate-500 mb-4">שתף תצוגה מקדימה ברשתות החברתיות או הטמע את מחולל 7 הרמות בכל אתר חיצוני</p>
+
+      <div class="flex gap-2 border-b border-slate-200 mb-4">
+        <button id="tabSocialBtn" onclick="switchShareTab('social')" class="pb-2 px-3 text-xs font-extrabold border-b-2 border-indigo-600 text-indigo-600">כרטיס תצוגה לרשתות חברתיות</button>
+        <button id="tabIframeBtn" onclick="switchShareTab('iframe')" class="pb-2 px-3 text-xs font-extrabold border-b-2 border-transparent text-slate-500">הטמעה באתר (Interactive Iframe)</button>
+      </div>
+
+      <div id="shareSocialPane" class="space-y-4">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <button onclick="shareExternal('whatsapp')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 rounded-xl">WhatsApp</button>
+          <button onclick="shareExternal('telegram')" class="bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold py-2.5 rounded-xl">Telegram</button>
+          <button onclick="shareExternal('linkedin')" class="bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold py-2.5 rounded-xl">LinkedIn</button>
+          <button onclick="copyShareUrl()" id="copyUrlBtn" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold py-2.5 rounded-xl">העתק קישור</button>
+        </div>
+      </div>
+
+      <div id="shareIframePane" class="hidden space-y-4">
+        <div class="flex gap-2">
+          <input id="iframeCodeInput" readonly value='<iframe src="https://psy-quant.vercel.app/?embed=1&level=4" width="100%" height="520" style="border:0;border-radius:16px;"></iframe>' class="w-full bg-slate-900 text-emerald-300 font-mono text-[11px] px-3 py-2 rounded-xl" dir="ltr" />
+          <button onclick="copyIframeCode()" id="copyIframeBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 rounded-xl shrink-0">העתק קוד</button>
+        </div>
+        <div class="border-2 border-dashed border-indigo-200 rounded-2xl p-3 bg-slate-50">
+          <div class="bg-white rounded-xl border border-slate-200 p-4 space-y-3">
+            <span id="iframeTopicBadge" class="bg-indigo-50 text-indigo-700 font-bold text-[11px] px-2 py-0.5 rounded"></span>
+            <p id="iframeQText" class="text-xs font-bold text-slate-800"></p>
+            <div id="iframeOpts" class="grid grid-cols-2 gap-2"></div>
+            <p id="iframeFeedback" class="text-xs font-bold hidden"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* __INJECT_GEN_JS__ */
+  /* __INJECT_APP_JS__ */
+  </script>
+</body>
+</html>
